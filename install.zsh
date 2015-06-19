@@ -89,6 +89,9 @@ git clone git@github.com:mralexgray/ubuntu.git "$REPODIR"
 ##
 ## And to finish it, a dist-upgrade to install/update them all.
 ##
+
+set +e 
+
 apt-get update && apt-get dist-upgrade -y
  
  
