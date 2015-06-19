@@ -9,7 +9,7 @@
 GITDIR=/git
 REPO=ubuntu
 REPODIR="${GITDIR}/${REPO}"
-INSTALL='apt-get --assume-yes install'
+INSTALL='apt-get -y install'
 
 trap 'echo Install Failed...' EXIT
 
