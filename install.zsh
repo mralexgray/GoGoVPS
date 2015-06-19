@@ -13,11 +13,11 @@ INSTALL='apt-get -y install'
 GITMAIL="alex@mrgray.com"
 GITHUBUSER=mralexgray
 
-trap 'echo Install Failed...' EXIT
+set -ex 
+
+trap 'printf "\n\n\nInstall Failed...\n\n\n' EXIT
 
 printf "\n\nWelcome to Ubuntu\n\nLet's make the z-shell + install git + make a /git folder!\n\n"
-
-set -x
 
 $INSTALL git zsh
 
