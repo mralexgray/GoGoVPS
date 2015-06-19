@@ -93,6 +93,7 @@ git clone git@github.com:mralexgray/ubuntu.git "$REPODIR"
 ##
 
 set +e 
+set -x
 
 apt-get update
 
