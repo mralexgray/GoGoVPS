@@ -21,7 +21,9 @@ set -x
 
 $INSTALL git zsh
 
-cat /dev/zero | ssh-keygen -q -t rsa -b 4096 -C $GITMAIL -N ""
+ssh-keygen -t rsa -b 4096 -C $GITMAIL -N "" -f ~/.ssh/id_rsa
+
+# cat /dev/zero | ssh-keygen -q -t rsa -b 4096 -C $GITMAIL -N ""
 # ssh-keygen -y 
 
 curl -u $GITHUBUSER \
