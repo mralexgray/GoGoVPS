@@ -22,14 +22,14 @@ printf "\n\nWelcome to Ubuntu\n\nLet's make the z-shell + install git + make a /
 
 $INSTALL git zsh curl mosh
 
-if [ -z "$KEYFILE" && -z "$KEYFILE.pub" ]; {
+if [ -z "$KEYFILE" && -z "$KEYFILE.pub" ]; then
 	
 	ssh-keygen -t rsa -b 4096 -C $GITMAIL -N "" -f $KEYFILE
 
 	curl -u $GITHUBUSER \
   		--data "{\"title\":\"UbuntuDrop_`date +%Y%m%d%H%M%S`\",\"key\":\"`cat ~/.ssh/id_rsa.pub`\"}" \
     	 https://api.github.com/user/keys
-}
+fi
 
 # cat /dev/zero | ssh-keygen -q -t rsa -b 4096 -C $GITMAIL -N ""
 # ssh-keygen -y 
@@ -48,12 +48,12 @@ fi
  
 shopt -s extglob
 
-for rcfile in $HOME/.zprezto/runcoms/!(README.md); { ln -s "$rcfile" "$HOME/.$(basename $rcfile)"; }
+for rcfile in $HOME/.zprezto/runcoms/!(README.md); do ln -s "$rcfile" "$HOME/.$(basename $rcfile)"; done
  
 	# XXX since we are using sudo for everything else, this is better than the
 	# usual chsh, which would request another password right in the middle of the
 	# script execution
-usermod -s $(which zsh) "$(whoami)"
+if [[ $SHELL != "$(which zsh)" ]; then usermod -s $(which zsh) $(whoami); fi
 
  
 # set -e
