@@ -20,11 +20,11 @@ trap 'printf "\n\n\nInstall Failed...\n\n\n' EXIT
 
 printf "\n\nWelcome to Ubuntu\n\nLet's make the z-shell + install git + make a /git folder!\n\n"
 
-$INSTALL git zsh curl
+$INSTALL git zsh curl mosh
 
-if [ -z "$KEYFILE" && -z "$KEYFILE.pub" ]; then {
+if [ -z "$KEYFILE" && -z "$KEYFILE.pub" ]; {
 	
-	ssh-keygen -t rsa -b 4096 -C $GITMAIL -N "" -f $KEYFILE; fi
+	ssh-keygen -t rsa -b 4096 -C $GITMAIL -N "" -f $KEYFILE
 
 	curl -u $GITHUBUSER \
   		--data "{\"title\":\"UbuntuDrop_`date +%Y%m%d%H%M%S`\",\"key\":\"`cat ~/.ssh/id_rsa.pub`\"}" \
