@@ -35,8 +35,10 @@ curl -u $GITHUBUSER \
 	##
 	## Setup Prezto
 	##
+
+
 	
-git clone --recursive https://github.com/mralexgray/prezto.git "$HOME/.zprezto"
+[[ -z ${PREZTODIR="$HOME/.zprezto}" ]] && git clone --recursive https://github.com/mralexgray/prezto.git "$PREZTODIR"
  
 shopt -s extglob
 
