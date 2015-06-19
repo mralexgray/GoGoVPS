@@ -9,17 +9,21 @@
 GITDIR=/git
 REPO=ubuntu
 REPODIR="${GITDIR}/${REPO}"
+INSTALL='apt-get --assume-yes install'
 
 trap 'echo Install Failed...' EXIT
 
 printf "\n\nWelcome to Ubuntu\n\nLet's make the z-shell + install git + make a /git folder!\n\n"
 
 set -x
-if ! which zsh; then apt-get install zsh; fi
+
+if ! which zsh; then $INSTALL zsh; fi
+
 set -e
+
 chsh -s $(which zsh)
 
-apt-get install git
+$INSTALL git
 mkdir -p "$GITDIR"
 git clone git@github.com:mralexgray/ubuntu.git "$REPODIR"
 
