@@ -25,6 +25,9 @@ chsh -s $(which zsh)
 
 $INSTALL git
 mkdir -p "$GITDIR"
+
+ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+
 git clone git@github.com:mralexgray/ubuntu.git "$REPODIR"
 
 
