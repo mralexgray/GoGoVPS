@@ -47,9 +47,9 @@ if [ -z "${PREZTODIR=$HOME/.zprezto}" ]; then
 fi
  
 shopt -s extglob
-
+set +e
 for rcfile in $PREZTODIR/runcoms/!(README.md); do ln -sF "$rcfile" "$HOME/.$(basename $rcfile)"; done
- 
+set -e
 	# XXX since we are using sudo for everything else, this is better than the
 	# usual chsh, which would request another password right in the middle of the
 	# script execution
