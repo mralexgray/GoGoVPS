@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/bin/bash
 
 # YES
 # bash <(wget -qO- https://raw.githubusercontent.com/mralexgray/ubuntu/master/install.zsh)
@@ -10,6 +10,8 @@ GITDIR=/git
 REPO=ubuntu
 REPODIR="${GITDIR}/${REPO}"
 INSTALL='apt-get -y install'
+GITMAIL="alex@mrgray.com"
+GITHUBUSER=mralexgray
 
 trap 'echo Install Failed...' EXIT
 
@@ -17,16 +19,40 @@ printf "\n\nWelcome to Ubuntu\n\nLet's make the z-shell + install git + make a /
 
 set -x
 
-if ! which zsh; then $INSTALL zsh; fi
+$INSTALL git zsh
 
-set -e
+ssh-keygen -t rsa -b 4096 -C $GITMAIL
 
-chsh -s $(which zsh)
+curl -u $GITHUBUSER \
+    --data "{\"title\":\"UbuntuDrop_`date +%Y%m%d%H%M%S`\",\"key\":\"`cat ~/.ssh/id_rsa.pub`\"}" \
+    https://api.github.com/user/keys
 
-$INSTALL git
+
+	##
+	## Setup Prezto
+	##
+	
+git clone --recursive https://github.com/mralexgray/prezto.git "$HOME/.zprezto"
+ 
+shopt -s extglob
+
+for rcfile in $HOME/.zprezto/runcoms/!(README.md); { ln -s "$rcfile" "$HOME/.$(basename $rcfile)"; }
+ 
+	# XXX since we are using sudo for everything else, this is better than the
+	# usual chsh, which would request another password right in the middle of the
+	# script execution
+usermod -s $(which zsh) "$(whoami)"
+
+ 
+# set -e
+#
+# chsh -s $(which zsh)
+#
+# $INSTALL git
+
 mkdir -p "$GITDIR"
 
-ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+# ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 
 git clone git@github.com:mralexgray/ubuntu.git "$REPODIR"
 
@@ -49,6 +75,13 @@ git clone git@github.com:mralexgray/ubuntu.git "$REPODIR"
 
 # echo "sudo dpkg-reconfigure console-setup,"""
 
+
+##
+## And to finish it, a dist-upgrade to install/update them all.
+##
+sudo apt-get update && sudo apt-get dist-upgrade -y
+ 
+ 
 : '
 git clone https://github.com/github/hub.git
 cd hub
