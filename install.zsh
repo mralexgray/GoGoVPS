@@ -92,12 +92,12 @@ if [ ! -d "$REPODIR" ]; then git clone git@github.com:mralexgray/$REPONAME.git "
 ## And to finish it, a dist-upgrade to install/update them all.
 ##
 
-set +e 
+set +e
 set -x
 
 apt-get update
 
-apt-get dist-upgrade -y
+apt-get -y dist-upgrade 
  
  
 # : '
