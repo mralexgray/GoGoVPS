@@ -42,7 +42,9 @@ if [ -z "$KEYFILE" && -z "$KEYFILE.pub" ]; {
 
 
 	
-[[ -z ${PREZTODIR="$HOME/.zprezto}" ]] && git clone --recursive https://github.com/mralexgray/prezto.git "$PREZTODIR"
+if [ -z "${PREZTODIR=$HOME/.zprezto}" ]; then 
+	git clone --recursive https://github.com/mralexgray/prezto.git "$PREZTODIR"
+fi
  
 shopt -s extglob
 
