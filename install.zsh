@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-curl -s https://raw.githubusercontent.com/mralexgray/ubuntu/master/install.zsh | bash
+# curl -s https://raw.githubusercontent.com/mralexgray/ubuntu/master/install.zsh | bash
 
 # https://raw.githubusercontent.com/mralexgray/ubuntu/master/install.zsh
 
