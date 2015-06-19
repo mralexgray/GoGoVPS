@@ -92,7 +92,9 @@ git clone git@github.com:mralexgray/ubuntu.git "$REPODIR"
 
 set +e 
 
-apt-get update && apt-get dist-upgrade -y
+apt-get update
+
+apt-get dist-upgrade -y
  
  
 : '
