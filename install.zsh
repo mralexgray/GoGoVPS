@@ -48,12 +48,12 @@ fi
  
 shopt -s extglob
 
-for rcfile in $HOME/.zprezto/runcoms/!(README.md); do ln -sF "$rcfile" "$HOME/.$(basename $rcfile)"; done
+for rcfile in "$PREZTODIR/runcoms/!(README.md)"; do ln -sF "$rcfile" "$HOME/.$(basename $rcfile)"; done
  
 	# XXX since we are using sudo for everything else, this is better than the
 	# usual chsh, which would request another password right in the middle of the
 	# script execution
-if [[ $SHELL != "$(which zsh)" ]; then usermod -s $(which zsh) $(whoami); fi
+if [ $SHELL != "$(which zsh)" ]; then usermod -s $(which zsh) $(whoami); fi
 
  
 # set -e
