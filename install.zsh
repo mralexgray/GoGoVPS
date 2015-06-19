@@ -21,7 +21,8 @@ set -x
 
 $INSTALL git zsh
 
-ssh-keygen -y -t rsa -b 4096 -C $GITMAIL
+cat /dev/zero | ssh-keygen -q -t rsa -b 4096 -C $GITMAIL -N ""
+# ssh-keygen -y 
 
 curl -u $GITHUBUSER \
     --data "{\"title\":\"UbuntuDrop_`date +%Y%m%d%H%M%S`\",\"key\":\"`cat ~/.ssh/id_rsa.pub`\"}" \
