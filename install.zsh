@@ -6,15 +6,27 @@
 # NO curl -s https://raw.githubusercontent.com/mralexgray/ubuntu/master/install.zsh | bash
 # RAW https://raw.githubusercontent.com/mralexgray/ubuntu/master/install.zsh
 
-printf "\n\nWelcome to Ubuntu\n\nLet's make you more sudo-y, shall we?"
-set -x
+GITDIR=/git
+REPO=ubuntu
+REPODIR="${GITDIR}/${REPO}"
 
-sudo echo "$USER ALL=(ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers
+trap 'echo Install Failed...' EXIT
 
-printf "\n\nLets make a /git folder!\n\n"
+printf "\n\nWelcome to Ubuntu\n\nLet's make the z-shell + install git + make a /git folder!\n\n"
+set -ex
 
-sudo mkdir -p /git
+if type -f zsh; then apt-get install zsh; fi
+chsh -s $(which zsh)
 
+apt-get install git
+mkdir -p "$GITDIR"
+git clone git@github.com:mralexgray/ubuntu.git "$REPODIR"
+
+
+# Let's make you more sudo-y, shall we?"
+# set -x
+
+# sudo echo "$USER ALL=(ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers
 
 # && curl -L https://github.com/mralexgray/ubuntu/install.zsh | tar xz --strip 1 -C homebrew
 
@@ -25,10 +37,6 @@ sudo mkdir -p /git
 # GITDIR=
 
 # THISREPO=git@github.com:mralexgray/ubuntu.git
-
-printf "\n\nchanging shell to zsh!\n\n"
-
-chsh -s /bin/zsh
 
 
 # echo "sudo dpkg-reconfigure console-setup,"""
