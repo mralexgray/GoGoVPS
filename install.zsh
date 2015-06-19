@@ -1,10 +1,20 @@
 #!/usr/bin/env zsh
 
-# curl -s https://raw.githubusercontent.com/mralexgray/ubuntu/master/install.zsh | bash
+# YES
+# bash <(wget -qO- https://raw.githubusercontent.com/mralexgray/ubuntu/master/install.zsh)
 
-# https://raw.githubusercontent.com/mralexgray/ubuntu/master/install.zsh
+# NO curl -s https://raw.githubusercontent.com/mralexgray/ubuntu/master/install.zsh | bash
+# RAW https://raw.githubusercontent.com/mralexgray/ubuntu/master/install.zsh
 
-echo "sudo mkdir -p /git"
+printf "\n\nWelcome to Ubuntu\n\nLet's make you more sudo-y, shall we?"
+set -x
+
+sudo echo "$USER ALL=(ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers
+
+printf "\n\nLets make a /git folder!\n\n"
+
+sudo mkdir -p /git
+
 
 # && curl -L https://github.com/mralexgray/ubuntu/install.zsh | tar xz --strip 1 -C homebrew
 
@@ -16,12 +26,12 @@ echo "sudo mkdir -p /git"
 
 # THISREPO=git@github.com:mralexgray/ubuntu.git
 
-echo "welcome!\n\nchanging shell to zsh!"
+printf "\n\nchanging shell to zsh!\n\n"
+
+chsh -s /bin/zsh
 
 
-echo "chsh -s $(which zsh)"
-
-echo "sudo dpkg-reconfigure console-setup,"""
+# echo "sudo dpkg-reconfigure console-setup,"""
 
 : '
 git clone https://github.com/github/hub.git
