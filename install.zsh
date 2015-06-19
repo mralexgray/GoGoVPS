@@ -22,7 +22,7 @@ printf "\n\nWelcome to Ubuntu\n\nLet's make the z-shell + install git + make a /
 
 $INSTALL git zsh curl
 
-[[ -z "$KEYFILE" ]] && ssh-keygen -t rsa -b 4096 -C $GITMAIL -N "" -f 
+if [ ! -f "$KEYFILE" ]; then ssh-keygen -t rsa -b 4096 -C $GITMAIL -N "" -f "$KEYFILE"; fi
 
 # cat /dev/zero | ssh-keygen -q -t rsa -b 4096 -C $GITMAIL -N ""
 # ssh-keygen -y 
