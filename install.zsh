@@ -22,14 +22,18 @@ printf "\n\nWelcome to Ubuntu\n\nLet's make the z-shell + install git + make a /
 
 $INSTALL git zsh curl
 
-if [ -z "$KEYFILE" && -z "$KEYFILE.pub" ]; then ssh-keygen -t rsa -b 4096 -C $GITMAIL -N "" -f $KEYFILE; fi
+if [ -z "$KEYFILE" && -z "$KEYFILE.pub" ]; then {
+	
+	ssh-keygen -t rsa -b 4096 -C $GITMAIL -N "" -f $KEYFILE; fi
+
+	curl -u $GITHUBUSER \
+  		--data "{\"title\":\"UbuntuDrop_`date +%Y%m%d%H%M%S`\",\"key\":\"`cat ~/.ssh/id_rsa.pub`\"}" \
+    	 https://api.github.com/user/keys
+}
 
 # cat /dev/zero | ssh-keygen -q -t rsa -b 4096 -C $GITMAIL -N ""
 # ssh-keygen -y 
 
-curl -u $GITHUBUSER \
-    --data "{\"title\":\"UbuntuDrop_`date +%Y%m%d%H%M%S`\",\"key\":\"`cat ~/.ssh/id_rsa.pub`\"}" \
-    https://api.github.com/user/keys
 
 
 	##
