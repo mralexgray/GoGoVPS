@@ -4,12 +4,20 @@
 # For more information see http://blog.tlensing.org/2013/02/24/objective-c-on-linux-setting-up-gnustep-clang-llvm-objective-c-2-0-blocks-runtime-gcd-on-ubuntu-12-04/
 #
 
+ENSURE(){
+	if [ $(dpkg-query -W -f='${Status}' $1 2>/dev/null | grep -c "ok installed") -eq 0 ]
+	then 	sudo apt-get install -y $1
+	else 	exit 99
+	fi
+}
 
-PKG_OK=$(dpkg-query -W --showformat='${Status}\n' curl | grep "install ok installed")
-echo "Checking for curl": $PKG_OK
-if [ "" == "$PKG_OK" ]; then
-  sudo apt-get install curl -y
-fi
+ENSURE curl
+
+# PKG_OK=$(dpkg-query -W --showformat='${Status}\n' curl | grep "install ok installed")
+# echo "Checking for curl": $PKG_OK
+# if [ "" == "$PKG_OK" ]; then
+#   sudo apt-get install curl -y
+# fi
 
 set -e 
 
@@ -29,14 +37,15 @@ echo Downloading libobjc2
 curl -O http://download.gna.org/gnustep/$OBJCDL
 
 
+DL() { echo "Downloading GNUstep ${1%-*}"
 
-for x in $GNUSTEPLIBS; do 
-	echo "Downloading GNUstep ${x%-*}"
-	if [ ! -f tmp/gnustep-$x ]; then 
-		curl -o tmp/gnustep-$x -O ftp://ftp.gnustep.org/pub/gnustep/core/gnustep-$x
+	if [ ! -f tmp/gnustep-$1 ]
+	then curl -o tmp/gnustep-$1 -O ftp://ftp.gnustep.org/pub/gnustep/core/gnustep-$1
 	else echo skipping
 	fi
-done
+}
+
+for x in $GNUSTEPLIBS; do DL $x; done
 
 # curl -o tmp/gnustep-$x -O ftp://ftp.gnustep.org/pub/gnustep/core/gnustep-$x
 
