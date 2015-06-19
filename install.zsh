@@ -66,7 +66,7 @@ mkdir -p "$GITDIR"
 
 # ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 
-git clone git@github.com:mralexgray/ubuntu.git "$REPODIR"
+if [ -z "$REPODIR" ]; then git clone git@github.com:mralexgray/ubuntu.git "$REPODIR"; fi
 
 
 # Let's make you more sudo-y, shall we?"
