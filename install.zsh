@@ -13,9 +13,10 @@ REPODIR="${GITDIR}/${REPO}"
 trap 'echo Install Failed...' EXIT
 
 printf "\n\nWelcome to Ubuntu\n\nLet's make the z-shell + install git + make a /git folder!\n\n"
-set -ex
 
-if type -f zsh; then apt-get install zsh; fi
+set -x
+if ! which zsh; then apt-get install zsh; fi
+set -e
 chsh -s $(which zsh)
 
 apt-get install git
