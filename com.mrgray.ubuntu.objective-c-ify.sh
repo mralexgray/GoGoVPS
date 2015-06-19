@@ -4,14 +4,14 @@
 # For more information see http://blog.tlensing.org/2013/02/24/objective-c-on-linux-setting-up-gnustep-clang-llvm-objective-c-2-0-blocks-runtime-gcd-on-ubuntu-12-04/
 #
 
-set -e 
 
 PKG_OK=$(dpkg-query -W --showformat='${Status}\n' curl | grep "install ok installed")
-echo "Checking for curl": 
-$PKG_OK
+echo "Checking for curl": $PKG_OK
 if [ "" == "$PKG_OK" ]; then
   sudo apt-get install curl -y
 fi
+
+set -e 
 
 mkdir -p tmp
 
