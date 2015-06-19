@@ -12,7 +12,7 @@ REPODIR="${GITDIR}/${REPO}"
 INSTALL='apt-get -y install'
 GITMAIL="alex@mrgray.com"
 GITHUBUSER=mralexgray
-KEYFILE=".ssh/id_rsa"
+KEYFILE=~/.ssh/id_rsa
 
 set -ex 
 
@@ -22,7 +22,7 @@ printf "\n\nWelcome to Ubuntu\n\nLet's make the z-shell + install git + make a /
 
 $INSTALL git zsh curl
 
-if [ -z "$KEYFILE" && -z "$KEYFILE.pub" ]; then ssh-keygen -t rsa -b 4096 -C $GITMAIL -N "" -f "$KEYFILE"; fi
+if [ -z "$KEYFILE" && -z "$KEYFILE.pub" ]; then ssh-keygen -t rsa -b 4096 -C $GITMAIL -N "" -f $KEYFILE; fi
 
 # cat /dev/zero | ssh-keygen -q -t rsa -b 4096 -C $GITMAIL -N ""
 # ssh-keygen -y 
