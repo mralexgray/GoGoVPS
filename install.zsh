@@ -100,13 +100,13 @@ apt-get update
 apt-get dist-upgrade -y
  
  
-: '
-git clone https://github.com/github/hub.git
-cd hub
-$ script/build
-$ mv ./hub ~/bin # ← move to somewhere in your PATH
-
-# alias it as git
-$ alias git=hub
-
-'
+# : '
+# git clone https://github.com/github/hub.git
+# cd hub
+# $ script/build
+# $ mv ./hub ~/bin # ← move to somewhere in your PATH
+#
+# # alias it as git
+# $ alias git=hub
+#
+# '
