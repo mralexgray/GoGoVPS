@@ -20,7 +20,7 @@ trap 'printf "\n\n\nInstall Failed...\n\n\n' EXIT
 
 printf "\n\nWelcome to Ubuntu\n\nLet's make the z-shell + install git + make a /git folder!\n\n"
 
-$INSTALL git zsh
+$INSTALL git zsh curl
 
 [[ -z "$KEYFILE" ]] && ssh-keygen -t rsa -b 4096 -C $GITMAIL -N "" -f 
 
