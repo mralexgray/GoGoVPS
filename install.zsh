@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env zsh
 
 # YES
 # bash <(wget -qO- https://raw.githubusercontent.com/mralexgray/ubuntu/master/install.zsh)
@@ -6,23 +6,45 @@
 # NO curl -s https://raw.githubusercontent.com/mralexgray/ubuntu/master/install.zsh | bash
 # RAW https://raw.githubusercontent.com/mralexgray/ubuntu/master/install.zsh
 
-GITDIR=/git
-REPO=ubuntu
-REPODIR="${GITDIR}/${REPO}"
-INSTALL='apt-get -y install'
-GITMAIL="alex@mrgray.com"
+PO() { for x in "$@"; { printf "\n\n%s\n\n" "$x" } }
+
+COLOR() { echo -e "\033[%@m" }
+
+
+
+	    THIS="$(realpath $(pwd)/$0)"
+	  GITDIR="/git"
+      REPO="ubuntu"
+   REPODIR="${GITDIR}/${REPO}"
+
+   GITMAIL=alex@mrgray.com
 GITHUBUSER=mralexgray
-KEYFILE=~/.ssh/id_rsa
+   KEYFILE="${HOME}/.ssh/id_rsa"
 
-set -ex 
+# set -e
+# set -x
 
-trap 'printf "\n\n\nInstall Failed...\n\n\n' EXIT
+COLOR "32;40"
 
-printf "\n\nWelcome to Ubuntu\n\nLet's make the z-shell + install git + make a /git folder!\n\n"
+PO "Welcome to Ubuntu - $(date -r $THIS)" "Let's make the z-shell + install git + make a /git folder!"
 
-$INSTALL git zsh curl mosh
+# COLOR "35;40"
 
-if [ -z "$KEYFILE" && -z "$KEYFILE.pub" ]; then
+# zshexit() { printf "\n\n\nInstall Failed...\n\n\n"; sleep 1; }  # zsh specific
+
+# trap 'echo trap; sleep 1' EXIT     # POSIX
+
+# trap 'printf "\n\n\nInstall Failed...\n\n\n' EXIT
+
+
+add-apt-repository ppa:keithw/mosh -y
+
+for x in git zsh curl mosh python-software-properties mosh; do INSTALL $x; done
+
+# apt-get update -y
+# apt-get install mosh -y
+
+if [[ -z "$KEYFILE" && -z "$KEYFILE.pub" ]]; then
 	
 	ssh-keygen -t rsa -b 4096 -C $GITMAIL -N "" -f $KEYFILE
 
@@ -45,15 +67,33 @@ fi
 if [ -z "${PREZTODIR=$HOME/.zprezto}" ]; then 
 	git clone --recursive https://github.com/mralexgray/prezto.git "$PREZTODIR"
 fi
+
+# if [ $SHELL != "$(which zsh)" ]; then usermod -s $(which zsh) $(whoami); fi
  
-shopt -s extglob
-set +e
-for rcfile in $PREZTODIR/runcoms/!(README.md); do ln -sF "$rcfile" "$HOME/.$(basename $rcfile)"; done
-set -e
+# setopt extendedglob
+
+
+setopt EXTENDED_GLOB
+set -x
+for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
+	
+  ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}" 2>/dev/null
+done
+
+# for rcfile in ${PREZTODIR}/runcoms/!(README.md); do ln -sF "$rcfile" "$HOME/.$(basename $rcfile)"; done
+
+# ls ${PREZTODIR}/runcoms/!(README.md)
+
+chsh -s /bin/zsh
+
+if ! grep '/git/ubuntu' /root/.zprofile; then 
+	echo "inserting /git/ubuntu into path setup shit"
+ 	sed -i '46i\  /git/ubuntu\' /root/.zprofile
+fi
+# set -e
 	# XXX since we are using sudo for everything else, this is better than the
 	# usual chsh, which would request another password right in the middle of the
 	# script execution
-if [ $SHELL != "$(which zsh)" ]; then usermod -s $(which zsh) $(whoami); fi
 
  
 # set -e
@@ -92,12 +132,12 @@ if [ ! -d "$REPODIR" ]; then git clone git@github.com:mralexgray/$REPONAME.git "
 ## And to finish it, a dist-upgrade to install/update them all.
 ##
 
-set +e
-set -x
+# set +e
+# set -x
+# 
+# apt-get update
 
-apt-get update
-
-apt-get -y dist-upgrade 
+# apt-get -y dist-upgrade
  
  
 # : '

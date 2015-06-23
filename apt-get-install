@@ -1,0 +1,8 @@
+#!/bin/sh
+
+for x in $@
+do 
+	if ! dpkg-query -l 2>&1 /dev/null
+		then apt-get install $x -y
+	fi
+done

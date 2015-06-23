@@ -1,17 +1,18 @@
-#!/bin/bash
-#
+#!/usr/bin/zsh
+
 # Written by Tobias Lensing, http://tlensing.org
 # For more information see http://blog.tlensing.org/2013/02/24/objective-c-on-linux-setting-up-gnustep-clang-llvm-objective-c-2-0-blocks-runtime-gcd-on-ubuntu-12-04/
 #
 
-ENSURE(){
-	if [ $(dpkg-query -W -f='${Status}' $1 2>/dev/null | grep -c "ok installed") -eq 0 ]
-	then 	sudo apt-get install -y $1
-	else 	exit 99
-	fi
-}
+# ENSURE(){
+#
+#   if dpkg-query -W -f='${Status}' $1 2>/dev/null | grep -c "ok installed") -eq 0 ]
+# 	then 	sudo apt-get install -y $1
+# 	else 	exit 99
+# 	fi
+# }
 
-ENSURE curl
+apt-get-install curl
 
 # PKG_OK=$(dpkg-query -W --showformat='${Status}\n' curl | grep "install ok installed")
 # echo "Checking for curl": $PKG_OK
@@ -19,7 +20,7 @@ ENSURE curl
 #   sudo apt-get install curl -y
 # fi
 
-set -e 
+set -x
 
 mkdir -p tmp
 
@@ -32,16 +33,20 @@ ${GGUI=gui-0.24.1.tar.gz}
 ${GBACK=back-0.24.1.tar.gz}
 )
 
-echo Downloading libobjc2
-# curl -O http://download.gna.org/gnustep/libobjc2-1.6.tar.gz
-curl -O http://download.gna.org/gnustep/$OBJCDL
-
+if [ ! -f tmp/$OBJCDL ]
+then 
+	echo "$FG[red]Downloading libobjc2 $FX[none]"
+	# curl -O http://download.gna.org/gnustep/libobjc2-1.6.tar.gz
+	curl -O http://download.gna.org/gnustep/$OBJCDL
+fi
 
 DL() { echo "Downloading GNUstep ${1%-*}"
 
 	if [ ! -f tmp/gnustep-$1 ]
-	then curl -o tmp/gnustep-$1 -O ftp://ftp.gnustep.org/pub/gnustep/core/gnustep-$1
-	else echo skipping
+	then 
+		echo "$FG[red]Downloading $gnustep-$1 $FX[none]"
+		curl -o tmp/gnustep-$1 -O ftp://ftp.gnustep.org/pub/gnustep/core/gnustep-$1
+	else echo "$FG[green] skipping $gnustep-$1 $FX[none]"
 	fi
 }
 
@@ -70,6 +75,8 @@ echo Checking for libdispatch-dev: $PKG_OK
 if [ "" != "$PKG_OK" ]; then
 	sudo apt-get remove libdispatch-dev -y
 fi
+ 
+set -e
 
 
 ESSENTIALS=(
