@@ -1,16 +1,30 @@
 #!/usr/bin/env zsh
 
+	 
 # YES
 # bash <(wget -qO- https://raw.githubusercontent.com/mralexgray/ubuntu/master/install.zsh)
 
 # NO curl -s https://raw.githubusercontent.com/mralexgray/ubuntu/master/install.zsh | bash
 # RAW https://raw.githubusercontent.com/mralexgray/ubuntu/master/install.zsh
 
-PO() { for x in "$@"; { printf "\n\n%s\n\n" "$x" } }
+
+PO() { for x in "$@"; { echo "\n$x" } }
+
+INSTALL() { 
+	for x in $@
+	do 
+		if [[ $(dpkg-query -l | grep $x) == "" ]]
+			 # ! dpkg-query -l $x 2>&1 /dev/null
+		then 
+			PO "Installing $x..."
+			apt-get install $x -y
+		else 
+			PO "$x already installed"
+		fi
+	done
+}
 
 COLOR() { echo -e "\033[%@m" }
-
-
 
 	    THIS="$(realpath $(pwd)/$0)"
 	  GITDIR="/git"
@@ -18,15 +32,14 @@ COLOR() { echo -e "\033[%@m" }
    REPODIR="${GITDIR}/${REPO}"
 
    GITMAIL=alex@mrgray.com
-GITHUBUSER=mralexgray
+   GITUSER=mralexgray
    KEYFILE="${HOME}/.ssh/id_rsa"
 
 # set -e
 # set -x
 
-COLOR "32;40"
-
-PO "Welcome to Ubuntu - $(date -r $THIS)" "Let's make the z-shell + install git + make a /git folder!"
+PO "Welcome to Ubuntu - $(date -r $THIS)"\
+	 "Let's make the z-shell + install git + make a /git folder!"
 
 # COLOR "35;40"
 
@@ -36,10 +49,14 @@ PO "Welcome to Ubuntu - $(date -r $THIS)" "Let's make the z-shell + install git 
 
 # trap 'printf "\n\n\nInstall Failed...\n\n\n' EXIT
 
+PO "Adding Mosh repository."
 
-add-apt-repository ppa:keithw/mosh -y
+add-apt-repository ppa:keithw/mosh -y 2> /dev/null
 
-for x in git zsh curl mosh python-software-properties mosh; do INSTALL $x; done
+INSTALL git zsh curl mosh python-software-properties mosh
+
+git config --global user.name "Alex Gray"
+git config --global user.email $GITMAIL
 
 # apt-get update -y
 # apt-get install mosh -y
@@ -72,24 +89,32 @@ fi
  
 # setopt extendedglob
 
-
+PO "Installing prezto files as needed.."
 setopt EXTENDED_GLOB
-set -x
+# set -x
 for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
 	
-  ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}" 2>/dev/null
+  [[ -z "${DEST=${ZDOTDIR:-$HOME}/.${rcfile:t}}" ]] && set -x && ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}" 2>/dev/null 
+	set +x
 done
 
 # for rcfile in ${PREZTODIR}/runcoms/!(README.md); do ln -sF "$rcfile" "$HOME/.$(basename $rcfile)"; done
 
 # ls ${PREZTODIR}/runcoms/!(README.md)
 
+PO "setting shell to zsh"
+
 chsh -s /bin/zsh
 
+PO "inserting /git/ubuntu into path setup shit, as needed"
+
 if ! grep '/git/ubuntu' /root/.zprofile; then 
-	echo "inserting /git/ubuntu into path setup shit"
  	sed -i '46i\  /git/ubuntu\' /root/.zprofile
+	PO "DONE"
+else
+	PO "Already done!"
 fi
+
 # set -e
 	# XXX since we are using sudo for everything else, this is better than the
 	# usual chsh, which would request another password right in the middle of the
