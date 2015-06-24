@@ -9,7 +9,7 @@ INSTALL() {
 		if ! dpkg-query -l | grep $x 
 		then 
 			PO "Installing $x..."
-			apt-get install $x -y;
+			apt-get install $x -y
 		else
 			PO "$x already installed"
 		fi
@@ -41,11 +41,12 @@ PO "Welcome to Ubuntu - $(date -r $THIS)"\
 
 # trap 'printf "\n\n\nInstall Failed...\n\n\n' EXIT
 
+
+INSTALL python-software-properties git zsh curl
+
 PO "Adding Mosh repository."
-
 add-apt-repository ppa:keithw/mosh -y 2> /dev/null
-
-INSTALL git zsh curl mosh python-software-properties mosh
+INSTALL mosh 
 
 git config --global user.name "Alex Gray"
 git config --global user.email $GITMAIL
