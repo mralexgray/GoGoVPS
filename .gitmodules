@@ -1,0 +1,3 @@
+[submodule "digital-ocean-pptp-vpn"]
+	path = digital-ocean-pptp-vpn
+	url = git@github.com:MdNor/digital-ocean-pptp-vpn.git
