@@ -6,7 +6,7 @@
 INSTALL() { 
 
 	for x in $@; do 
-		[[ $(dpkg-query -l | grep $x) == "" ]] && { PO "Installing $x..."; apt-get install $x -y } \
+		[[ $(dpkg-query -l | grep $x) == "" ]] && { PO "Installing $x..."; apt-get install $x -y; } \
 																					 ||   PO "$x already installed"
 	done
 }
