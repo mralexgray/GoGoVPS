@@ -1,26 +1,13 @@
 #!/usr/bin/env zsh
 
-	 
-# YES
 # bash <(wget -qO- https://raw.githubusercontent.com/mralexgray/ubuntu/master/install.zsh)
 
-# NO curl -s https://raw.githubusercontent.com/mralexgray/ubuntu/master/install.zsh | bash
-# RAW https://raw.githubusercontent.com/mralexgray/ubuntu/master/install.zsh
-
-
-PO() { for x in "$@"; { echo "\n$x" } }
-
+     PO() { for x in "$@"; { echo "\n$x" } }
 INSTALL() { 
-	for x in $@
-	do 
-		if [[ $(dpkg-query -l | grep $x) == "" ]]
-			 # ! dpkg-query -l $x 2>&1 /dev/null
-		then 
-			PO "Installing $x..."
-			apt-get install $x -y
-		else 
-			PO "$x already installed"
-		fi
+
+	for x in $@; do 
+		[[ $(dpkg-query -l | grep $x) == "" ]] && { PO "Installing $x..."; apt-get install $x -y } \
+																					 ||   PO "$x already installed"
 	done
 }
 
@@ -175,3 +162,8 @@ if [ ! -d "$REPODIR" ]; then git clone git@github.com:mralexgray/$REPONAME.git "
 # $ alias git=hub
 #
 # '
+
+# NO curl -s https://raw.githubusercontent.com/mralexgray/ubuntu/master/install.zsh | bash
+# RAW https://raw.githubusercontent.com/mralexgray/ubuntu/master/install.zsh
+
+
