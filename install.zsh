@@ -6,7 +6,8 @@
 INSTALL() { 
 
 	for x in $@; do 
-		if [[ $(dpkg-query -l | grep $x) == "" ]]; then 
+		if ! dpkg-query -l | grep $x 
+		then 
 			PO "Installing $x..."
 			apt-get install $x -y;
 		else
