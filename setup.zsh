@@ -1,6 +1,6 @@
-#!/usr/bin/env zsh
+#!/bin/sh
 
-# bash <(wget -qO- https://raw.githubusercontent.com/mralexgray/ubuntu/master/install.zsh)
+# bash <(wget -qO- https://raw.githubusercontent.com/mralexgray/ubuntu/master/setup.zsh)
 
 echo "what is the hostname of your new droplet?"
 read HOSTNAME
@@ -13,7 +13,7 @@ read PASS
 
 
   HOST=${HOSTNAME/*./}
-DOMAIN=${HOSTNAME/.*/}
+DOMAIN=${HOSTNAME.*/}
 
 echo "setting up A record on $DOMAIN for $HOST with ip $IP for $LOGIN."
 
