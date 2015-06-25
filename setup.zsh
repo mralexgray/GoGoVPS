@@ -2,8 +2,10 @@
 
 # bash <(wget -qO- https://raw.githubusercontent.com/mralexgray/ubuntu/master/setup.zsh)
 
-echo "what is the hostname of your new droplet?"
+echo "what is the hostname of your new droplet? [$(hostname)]"
 read HOSTNAME
+HOSTNAME=$"{HOSTNAME:-$(hostname)}"
+
 echo "what is the ipV4 of your new droplet?"
 read IP
 echo "what is your dns.he.net login?"
