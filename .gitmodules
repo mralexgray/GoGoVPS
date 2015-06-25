@@ -4,3 +4,6 @@
 [submodule "openvpn_autoconfig"]
 	path = openvpn_autoconfig
 	url = git@github.com:tinfoil/openvpn_autoconfig.git
+[submodule "pyHurricaneDNS"]
+	path = pyHurricaneDNS
+	url = git@github.com:tresni/pyHurricaneDNS.git
