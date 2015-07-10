@@ -7,3 +7,6 @@
 [submodule "pyHurricaneDNS"]
 	path = pyHurricaneDNS
 	url = git@github.com:tresni/pyHurricaneDNS.git
+[submodule "darling"]
+	path = darling
+	url = https://github.com/LubosD/darling.git

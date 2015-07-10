@@ -3,7 +3,7 @@
 # bash <(wget -qO- https://raw.githubusercontent.com/mralexgray/ubuntu/master/install.zsh)
 
      PO() { for x in "$@"; { echo "\n$x" } }
-INSTALL() { 
+INSTALL() {
 
 	for x in $@; do 
 		if ! dpkg-query -l | grep $x 
