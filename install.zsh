@@ -3,6 +3,7 @@
 # bash <(wget -qO- https://raw.githubusercontent.com/mralexgray/ubuntu/master/install.zsh)
 
      PO() { for x in "$@"; { echo "\n$x" } }
+		 
 INSTALL() {
 
 	for x in $@; do 
@@ -85,7 +86,7 @@ fi
 PO "Installing prezto files as needed.."
 setopt EXTENDED_GLOB
 # set -x
-for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
+for rcfile in "${ZDOTDIR:-$HOME}/.zprezto/runcoms/^README.md(.N)"; do
 	
   [[ -z "${DEST=${ZDOTDIR:-$HOME}/.${rcfile:t}}" ]] && set -x && ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}" 2>/dev/null 
 	set +x
