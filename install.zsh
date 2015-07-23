@@ -1,8 +1,8 @@
-#!/usr/bin/env zsh
+#!/bin/zsh
 
 # bash <(wget -qO- https://raw.githubusercontent.com/mralexgray/ubuntu/master/install.zsh)
 
-     PO() { for x in "$@"; { echo "\n$x" } }
+     PO() { for x in "$@"; { echo "\n$x"; }; }
 		 
 INSTALL() {
 
