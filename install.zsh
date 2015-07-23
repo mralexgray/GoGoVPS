@@ -1,4 +1,3 @@
-#!/bin/zsh
 
 # bash <(wget -qO- https://raw.githubusercontent.com/mralexgray/ubuntu/master/install.zsh)
 
@@ -6,6 +5,7 @@
 		 
 INSTALL() {
 
+	if [ $# == 0 ]; then return 1; fi
 	for x in $@; do 
 		if ! dpkg-query -l | grep $x 
 		then 
