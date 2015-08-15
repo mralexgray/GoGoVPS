@@ -33,7 +33,7 @@ COLOR() 	{
 
    GITMAIL=alex@mrgray.com
    GITUSER=mralexgray
-   KEYFILE="${HOME}/.ssh/id_rsa"
+   # KEYFILE="${HOME}/.ssh/id_rsa"
 
 # set -e
 # set -x
@@ -81,7 +81,7 @@ git config --global user.email $GITMAIL
 
 	
 if [ -z "${PREZTODIR=$HOME/.zprezto}" ]; then 
-	git clone --recursive https://github.com/mralexgray/prezto.git "$PREZTODIR"
+	git clone --recursive https://github.com/sorin-ionescu/prezto.git "$PREZTODIR"
 fi
 
 # if [ $SHELL != "$(which zsh)" ]; then usermod -s $(which zsh) $(whoami); fi
