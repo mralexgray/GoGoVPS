@@ -1,20 +1,10 @@
 #!/bin/sh
 
-DOWNLOAD_URI=https://github.com/supermarin/Alcatraz/releases/download/1.1.6/Alcatraz.tar.gz
-PLUGINS_DIR="${HOME}/Library/Application Support/Developer/Shared/Xcode/Plug-ins"
-
-mkdir -p "${PLUGINS_DIR}"
-curl -L $DOWNLOAD_URI | tar xvz -C "${PLUGINS_DIR}"
-
-# the 1 is not a typo!
-echo "Alcatraz successfully installed!!1!🍻   Please restart your Xcode."
-
-
 # bash <(wget -qO- https://raw.githubusercontent.com/mralexgray/ubuntu/master/install.zsh)
 
 PO() 			{
 	for x in "$@"; { echo "\n$x"; }; 
-}		 
+}
 INSTALL() {
 
 	if [ $# == 0 ]; then return 1; fi
@@ -32,9 +22,8 @@ COLOR() 	{
 	echo -e "\033[%@m" 
 }
 
-	    THIS="$(realpath $(pwd)/$0)"
+	    # THIS="$(realpath $(pwd)/$0)"
 	  GITDIR="/git"
-      REPO="ubuntu"
    REPODIR="${GITDIR}/${REPO}"
 
    GITMAIL=alex@mrgray.com
@@ -44,15 +33,13 @@ COLOR() 	{
 # set -e
 # set -x
 
-PO "Welcome to Ubuntu - $(date -r $THIS)"\
+PO "Welcome to your droplet - $(date -r $THIS)"\
 	 "Let's make the z-shell + install git + make a /git folder!"
 
 # COLOR "35;40"
 
 # zshexit() { printf "\n\n\nInstall Failed...\n\n\n"; sleep 1; }  # zsh specific
-
 # trap 'echo trap; sleep 1' EXIT     # POSIX
-
 # trap 'printf "\n\n\nInstall Failed...\n\n\n' EXIT
 
 
@@ -185,5 +172,45 @@ if [ ! -d "$REPODIR" ]; then git clone git@github.com:mralexgray/$REPONAME.git "
 
 # NO curl -s https://raw.githubusercontent.com/mralexgray/ubuntu/master/install.zsh | bash
 # RAW https://raw.githubusercontent.com/mralexgray/ubuntu/master/install.zsh
+
+
+
+
+
+
+# echo " | /tmp/pyHurricaneDNS/hurricanednscmd.py $DNS_USER $DNS_PASS # 2> /dev/null
+# exit" | /tmp/pyHurricaneDNS/hurricanednscmd.py $LOGIN $PASS
+
+# setopt extendedglob
+# HOSTNAME=$"{HOSTNAME:-$(hostname)}"
+# HOST=$(perl -e 'open IN, "</usr/share/dict/words";rand($.) < 1 && ($n=$_) while <IN>;print $n')
+# DOMAIN=$(domainname)
+# read -e -p "Enter Your Name:" -i "Ricardo" NAME
+
+# read -e -p " What is the ipV4 of your new droplet? ..." -i $IP # [[ ${IP:=$TMP_IP} != "" ]] && 
+
+# arg1: default value, arg2: prompt text stdout: default, or read value
+# VALGET () { VAR="$1"; shift; read "val? $@ [$VAR] "; echo "${val:-$VAR}"; }
+# prompt for IP using default from saved value
+
+# IP=$(VALGET ${IP:-0.0.0.0} 'What is the ipV4 of your new droplet?')
+
+# bail on no entry, or save IP for safekeeping
+# [[ "$IP" == "0.0.0.0" ]] && echo "Need IP4! Exiting!" && exit 2
+
+# echo "$IP" >! "$TMPF" && echo "Saved IP: $IP to $TMPF"
+
+# echo "ls mrgray.com" | ./hurricanednscmd.py mralexgray ***REMOVED***
+
+# add domain host type value [mx] [ttl]
+
+# DOWNLOAD_URI=https://github.com/supermarin/Alcatraz/releases/download/1.1.6/Alcatraz.tar.gz
+# PLUGINS_DIR="${HOME}/Library/Application Support/Developer/Shared/Xcode/Plug-ins"
+#
+# mkdir -p "${PLUGINS_DIR}"
+# curl -L $DOWNLOAD_URI | tar xvz -C "${PLUGINS_DIR}"
+
+# the 1 is not a typo!
+# echo "Alcatraz successfully installed!!1!🍻   Please restart your Xcode."
 
 

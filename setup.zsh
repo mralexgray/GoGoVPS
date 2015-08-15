@@ -4,8 +4,10 @@ REPO=GoGoVPS
 
 # bash <(wget -qO- https://raw.githubusercontent.com/mralexgray/GoGoVPS/master/setup.zsh)
 
+# set -x 
+
 # Make sure we're installed, otherwise do it.
-[[ $(basename $0) != $REPO ]] || [[ ! "$(git remote -b)" =~ $REPO ]] && {
+[[ $(basename $(realpath ${0:h})) != $REPO || ! "$(git remote -v)" =~ $REPO ]] && {
 	
 	echo "danger, not the right git repo!"
 	exit
@@ -20,5 +22,5 @@ REPO=GoGoVPS
 . ${0}/../setup/dns.zsh
 
 # Connect
-[[ $(hostname) != $HOSTNAME ]] && ssh root@${HOSTNAME}
+[[ $(hostname) != $HOSTNAME ]] && ssh root@${HOSTNAME} 'bash <(wget -qO- https://raw.githubusercontent.com/mralexgray/GoGoVPS/master/setup/install.zsh'
 
