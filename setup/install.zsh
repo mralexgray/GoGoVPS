@@ -9,10 +9,10 @@ INSTALL() {
 
 	if [ $# == 0 ]; then return 1; fi
 	for x in $@; do 
-		if ! dpkg-query -l | grep $x 
+		if ! dpkg-query -l | grep -q $x 
 		then 
 			PO "Installing $x..."
-			apt-get install $x -y
+			apt-get install $x -y &> /dev/null
 		else
 			PO "$x already installed"
 		fi
