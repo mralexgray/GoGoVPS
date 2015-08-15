@@ -23,8 +23,8 @@ COLOR() 	{
 }
 
 	    # THIS="$(realpath $(pwd)/$0)"
-	  GITDIR="/git"
-   REPODIR="${GITDIR}/${REPO}"
+cd ${GITDIR=/git}
+# >    REPODIR="${GITDIR}/${REPO}"
 
    GITMAIL=alex@mrgray.com
    GITUSER=mralexgray
