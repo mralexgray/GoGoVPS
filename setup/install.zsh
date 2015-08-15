@@ -3,16 +3,17 @@
 # bash <(wget -qO- https://raw.githubusercontent.com/mralexgray/ubuntu/master/install.zsh)
 
 PO() 			{
-	for x in "$@"; { echo "\n$x"; }; 
+	for x in "$@"; { echo "$x"; }; 
 }
 INSTALL() {
 
 	if [ $# == 0 ]; then return 1; fi
 	for x in $@; do 
-		if ! dpkg-query -l | grep -q $x 
+		if ! dpkg-query -l | grep -q $x
 		then 
 			PO "Installing $x..."
-			apt-get install $x -y &> /dev/null
+			apt-get install $x -y 
+			# &> /dev/null
 		else
 			PO "$x already installed"
 		fi

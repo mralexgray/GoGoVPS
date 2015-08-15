@@ -54,5 +54,8 @@ DNS(){
 	echo "ls $DOMAIN"               | /tmp/pyHurricaneDNS/hurricanednscmd.py $DNS_USER $DNS_PASS 2> /dev/null
 }
 
-read "SETUP?Setup DNS? [y/N]  "
-[[ -n "$SETUP" ]]  && DNS
+
+[[ -z $HOSTNAME ]] && DNS || {
+	read "SETUP?Setup DNS for $HOSTNAME? [y/N]  "
+	[[ -n "$SETUP" ]]  && DNS || dig $HOSTNAME
+}
