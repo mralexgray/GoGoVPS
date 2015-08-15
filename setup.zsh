@@ -22,5 +22,7 @@ REPO=GoGoVPS
 . ${0}/../setup/dns.zsh
 
 # Connect
-[[ $(hostname) != $HOSTNAME ]] && ssh root@${HOSTNAME} 'bash <(wget -qO- https://raw.githubusercontent.com/mralexgray/GoGoVPS/master/setup/install.zsh)'
+[[ $(hostname) == $HOSTNAME ]] && exit 
+
+/usr/local/bin/ssh root@$HOSTNAME 'bash <(wget -qO- https://raw.githubusercontent.com/mralexgray/GoGoVPS/master/setup/install.zsh)'
 
