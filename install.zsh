@@ -1,8 +1,20 @@
+#!/bin/sh
+
+DOWNLOAD_URI=https://github.com/supermarin/Alcatraz/releases/download/1.1.6/Alcatraz.tar.gz
+PLUGINS_DIR="${HOME}/Library/Application Support/Developer/Shared/Xcode/Plug-ins"
+
+mkdir -p "${PLUGINS_DIR}"
+curl -L $DOWNLOAD_URI | tar xvz -C "${PLUGINS_DIR}"
+
+# the 1 is not a typo!
+echo "Alcatraz successfully installed!!1!🍻   Please restart your Xcode."
+
 
 # bash <(wget -qO- https://raw.githubusercontent.com/mralexgray/ubuntu/master/install.zsh)
 
-     PO() { for x in "$@"; { echo "\n$x"; }; }
-		 
+PO() 			{
+	for x in "$@"; { echo "\n$x"; }; 
+}		 
 INSTALL() {
 
 	if [ $# == 0 ]; then return 1; fi
@@ -16,8 +28,9 @@ INSTALL() {
 		fi
 	done
 }
-
-COLOR() { echo -e "\033[%@m" }
+COLOR() 	{
+	echo -e "\033[%@m" 
+}
 
 	    THIS="$(realpath $(pwd)/$0)"
 	  GITDIR="/git"
