@@ -8,9 +8,7 @@ PO() 			{
 	for x in "$@"; { echo "$x"; }; 
 }
 INSTALL() {
-
-	if [ $# == 0 ]; then return 1; fi
-	for x in $@; do 
+	for x in $@; {
 		if ! dpkg-query -l | grep -q $x
 		then 
 			PO "Installing $x..."
@@ -19,7 +17,7 @@ INSTALL() {
 		else
 			PO "$x already installed"
 		fi
-	done
+	}
 }
 COLOR() 	{
 	echo -e "\033[%@m" 
