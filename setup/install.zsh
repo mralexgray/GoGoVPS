@@ -2,6 +2,8 @@
 
 # bash <(wget -qO- https://raw.githubusercontent.com/mralexgray/ubuntu/master/install.zsh)
 
+REPO=$(git remote -v|head -n1 | sed 's:.*/::g'| cut -f1 -d '.')
+
 PO() 			{
 	for x in "$@"; { echo "$x"; }; 
 }
@@ -22,10 +24,12 @@ INSTALL() {
 COLOR() 	{
 	echo -e "\033[%@m" 
 }
-
-	    # THIS="$(realpath $(pwd)/$0)"
-cd ${GITDIR=/git}
-# >    REPODIR="${GITDIR}/${REPO}"
+	
+	REPO=GoGoVPS
+	# $(git remote -v|head -n1 | sed 's:.*/::g'| cut -f1 -d '.')
+	THIS="$(realpath $(pwd)/$0)"
+	mkdir ${GITDIR=/git} && cd $GITDIR
+	REPODIR="${GITDIR}/${REPO}"
 
    GITMAIL=alex@mrgray.com
    GITUSER=mralexgray
@@ -56,14 +60,14 @@ git config --global user.email $GITMAIL
 # apt-get update -y
 # apt-get install mosh -y
 
-if [[ -z "$KEYFILE" && -z "$KEYFILE.pub" ]]; then
-	
-	ssh-keygen -t rsa -b 4096 -C $GITMAIL -N "" -f $KEYFILE
-
-	curl -u $GITHUBUSER \
-  		--data "{\"title\":\"UbuntuDrop_`date +%Y%m%d%H%M%S`\",\"key\":\"`cat ~/.ssh/id_rsa.pub`\"}" \
-    	 https://api.github.com/user/keys
-fi
+# if [[ -z "$KEYFILE" && -z "$KEYFILE.pub" ]]; then
+#
+# 	ssh-keygen -t rsa -b 4096 -C $GITMAIL -N "" -f $KEYFILE
+#
+# 	curl -u $GITHUBUSER \
+#   		--data "{\"title\":\"UbuntuDrop_`date +%Y%m%d%H%M%S`\",\"key\":\"`cat ~/.ssh/id_rsa.pub`\"}" \
+#     	 https://api.github.com/user/keys
+# fi
 
 # cat /dev/zero | ssh-keygen -q -t rsa -b 4096 -C $GITMAIL -N ""
 # ssh-keygen -y 
@@ -101,15 +105,15 @@ PO "setting shell to zsh"
 
 chsh -s /bin/zsh
 
-PO "inserting /git/ubuntu into path setup shit, as needed"
+PO "inserting /git/ into path setup shit, as needed"
 
-if ! grep '/git/ubuntu' /root/.zprofile; then 
- 	sed -i '46i\  /git/ubuntu\' /root/.zprofile
-	PO "DONE"
-else
-	PO "Already done!"
-fi
-
+# if ! grep '/git/ubuntu' /root/.zprofile; then
+#  	sed -i '46i\  /git/ubuntu\' /root/.zprofile
+# 	PO "DONE"
+# else
+# 	PO "Already done!"
+# fi
+#
 # set -e
 	# XXX since we are using sudo for everything else, this is better than the
 	# usual chsh, which would request another password right in the middle of the
