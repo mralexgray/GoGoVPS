@@ -12,11 +12,7 @@ fi
 IFACES=/etc/network/interfaces
 if ! grep tap0 $IFACES 1> /dev/null; then 
 	echo Adding tap0 to $IFACES!!
-	echo "
-	iface tap0 inet static
-	    address 10.10.10.1
-	    netmask 255.255.255.0
-	" >>! $IFACES
+	echo -e "\niface tap0 inet static\n\taddress 10.10.10.1\n" >> $IFACES
 else 	echo tap0 ALREADY to $IFACES!!
 fi
 
