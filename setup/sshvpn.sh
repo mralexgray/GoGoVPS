@@ -2,21 +2,20 @@
 
 
 SYSCTL=/etc/sysctl.conf
-if egrep '^net.ipv4.ip_forward.*1$' $SYSCTL; then
-
+if ! egrep '^net.ipv4.ip_forward.*1$' $SYSCTL; then
 	echo $SYSCTL  needs help!!
-	# sed -i 's/.*net.ipv4.ip_forward.*/net.ipv4.ip_forward=1/g' $SYSCTL
+	sed -i 's/.*net.ipv4.ip_forward.*/net.ipv4.ip_forward=1/g' $SYSCTL
 fi
 
 IFACES=/etc/network/interfaces
 if ! grep tap0 $IFACES; then 
 
 	echo $IFACES  needs tap0!!
-# echo "
-# iface tap0 inet static
-#     address 10.10.10.1
-#     netmask 255.255.255.0
-# " >>! $IFACES
+	echo "
+	iface tap0 inet static
+	    address 10.10.10.1
+	    netmask 255.255.255.0
+	" >>! $IFACES
 fi
 		
 KEYFILE=.ssh/authorized_keys
