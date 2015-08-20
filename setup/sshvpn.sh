@@ -33,6 +33,11 @@ else
 	echo PermitTunnel ALREADY in $DCONF!!
 fi	
 
+service ssh restart
+service networking restart
+
+
+
 KEYFILE=.ssh/authorized_keys
 # sed '1 i\tunnel="0", command="/sbin/ifdown tun0;/sbin/ifup tun0"' KEYFILE
 # sed '1 i\tunnel="0", command="/sbin/ifdown tun0;/sbin/ifup tun0"' KEYFILE
