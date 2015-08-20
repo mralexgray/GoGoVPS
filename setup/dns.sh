@@ -1,11 +1,11 @@
 #!/usr/bin/env zsh
 
 # look for saved IP to make repeat runs less arduous.
-
 [[ -f ${TMPF=/tmp/setupsavefile} ]] && . $TMPF
-# while read line; do export $line; done < $TMPF;
 
-SAVEIT () { echo '' >! $TMPF	
+SAVEIT () {
+	
+	echo '' >! $TMPF	
 	for x in IP HOSTNAME DNS_USER DNS_PASS; {
 		[[ -z ${(P)x} ]] && { echo "$x is NULL!" && exit } || echo "$x=${(P)x}" >>! $TMPF
 	}
@@ -14,6 +14,7 @@ SAVEIT () { echo '' >! $TMPF
 trap 'SAVEIT' SIGHUP SIGINT SIGTERM
 
 DNS(){
+	
 	read "GET_IP? What is the ipV4 of your new droplet? [$IP]  "
 	[[ -n $GET_IP ]]  && IP=$GET_IP
 	rx='([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])'
@@ -32,8 +33,7 @@ DNS(){
 
 	SAVEIT
 
-	echo "
-	setting up A record on domain:
+	echo "Setting up A record on domain:
 		${DOMAIN=${HOSTNAME#*.}}
 	for host:
 		$HOSTNAME
@@ -49,9 +49,9 @@ DNS(){
 
 	echo "adding $HOSTNAME on domain $DOMAIN"
 
-	echo "del $DOMAIN $HOSTNAME" 		| /tmp/pyHurricaneDNS/hurricanednscmd.py $DNS_USER $DNS_PASS 2> /dev/null
+	echo "del $DOMAIN $HOSTNAME" | 							/tmp/pyHurricaneDNS/hurricanednscmd.py $DNS_USER $DNS_PASS 2> /dev/null
 	echo "add $DOMAIN ${HOSTNAME/.*/} a $IP" 	| /tmp/pyHurricaneDNS/hurricanednscmd.py $DNS_USER $DNS_PASS 2> /dev/null
-	echo "ls $DOMAIN"               | /tmp/pyHurricaneDNS/hurricanednscmd.py $DNS_USER $DNS_PASS 2> /dev/null
+	echo "ls $DOMAIN" | 												/tmp/pyHurricaneDNS/hurricanednscmd.py $DNS_USER $DNS_PASS 2> /dev/null
 }
 
 
