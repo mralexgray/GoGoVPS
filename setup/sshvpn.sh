@@ -27,7 +27,7 @@ else
 fi	
 
 RCFILE=.bashrc
-KEYILE=.ssh/authorized_keys
+KEYFILE=.ssh/authorized_keys
 if ! grep tap0 $RCFILE; then 
 	echo Adding Tunnel Setup to $RCFILE!!
 	echo -e '\n[[ -n $SSH_CONNECTION ]] && /sbin/ifup tun0\n' >> $RCFILE
