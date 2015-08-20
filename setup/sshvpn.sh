@@ -33,13 +33,19 @@ else
 	echo PermitTunnel ALREADY in $DCONF!!
 fi	
 
-service ssh restart
-service networking restart
-
-
-
 KEYFILE=.ssh/authorized_keys
-# sed '1 i\tunnel="0", command="/sbin/ifdown tun0;/sbin/ifup tun0"' KEYFILE
+if ! grep tunnel $KEYFILE; then 
+	echo Adding Tunnel Setup to $KEYFILE!!
+	sed -ie 's:^:tunnel="0", command="/sbin/ifup tun0" :' $KEYFILE
+else
+	echo $KEYFILE ALREADY has tunnel command, etc!!
+fi
+
+
+for x in ssh networking; { echo Restarting $x;  service $x restart; }
+
+
+# sed '1 i\tunnel="0", command="/sbin/ifup tun0"' KEYFILE
 # sed '1 i\tunnel="0", command="/sbin/ifdown tun0;/sbin/ifup tun0"' KEYFILE
 # your_text'KEYS="$(/bin/cat $KEYFILE)"
 		 
