@@ -26,27 +26,25 @@ else
 	echo PermitTunnel ALREADY in $DCONF!!
 fi	
 
-RCFILE=.bashrc
-KEYFILE=.ssh/authorized_keys
-if ! grep tap0 $RCFILE; then 
-	echo Adding Tunnel Setup to $RCFILE!!
-	echo -e '\n[[ -n $SSH_CONNECTION ]] && /sbin/ifup tun0\n' >> $RCFILE
-	sed -ie 's:^:tunnel="0" :' $KEYFILE
+RCFILE='.bashrc'
+if ! grep tap0 $RCFILE; then
+	echo "Adding Tunnel Setup to $RCFILE!!"
+	echo -e '\n[[ -n $SSH_CONNECTION ]] && /sbin/ifup tap0\n' >> $RCFILE
 	REBOOT=1
 else
-	echo $KEYFILE ALREADY has tunnel command, etc!!
+	echo "$RCFILE ALREADY has tunnel command, etc!!"
 fi
 
 iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE && iptables-save
 
-[[ -a $REBOOT ]] && echo Rebooting && reboot
+# [[ -a $REBOOT ]] && echo Rebooting && reboot
 
 echo "Reconnect with -W, reset the route locally.... and you shpuld be good to go!
 ssh -w root@$(hostname)
 sudo route delete default
 sudo route add default 10.10.10.1
 "
-
+reboot
 
 # for x in ssh networking; { echo Restarting $x;  service $x restart; }
 # sed '1 i\tunnel="0", command="/sbin/ifup tun0"' KEYFILE
@@ -58,4 +56,6 @@ sudo route add default 10.10.10.1
 # iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE && iptables-save
 # pointopoint 10.60.0.81
 # up arp -sD 10.60.0.81 eth1 pub
+# KEYFILE=.ssh/authorized_keys
+# sed -ie 's:^:Tunnel="0" :' $KEYFILE
 		
