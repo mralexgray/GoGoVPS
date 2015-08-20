@@ -1,4 +1,5 @@
-# bash <(wget -qO- https://raw.githubusercontent.com/mralexgray/vps_config/master/setup/sshvpn.sh)
+
+# ssh cloud_LTE 'bash <(wget -qO- https://raw.githubusercontent.com/mralexgray/vps_config/master/setup/sshvpn.sh)'
 
 
 SYSCTL=/etc/sysctl.conf
@@ -22,7 +23,8 @@ fi
 DCONF=/etc/ssh/sshd_config
 if ! egrep "^PermitTunnel yes$" $DCONF; then
 	echo Adding PermitTunnel to $DCONF!!
-	sed -i 's/PermitRootLogin yes/PermitRootLogin yes\nPermitTunnel yes\n' $DCONF
+	sed 's/\(PermitRootLogin yes\)/\1\'$'\n''PermitTunnel yes\'$'\n''/' $DCONF
+	# sed -i 's/PermitRootLogin yes/PermitRootLogin yes\nPermitTunnel yes\n' $DCONF
 else
 	echo PermitTunnel ALREADY in $DCONF!!
 fi	
