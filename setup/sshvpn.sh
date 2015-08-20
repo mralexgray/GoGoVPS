@@ -26,10 +26,12 @@ else
 	echo PermitTunnel ALREADY in $DCONF!!
 fi	
 
-KEYFILE=.ssh/authorized_keys
-if ! grep tunnel $KEYFILE; then 
-	echo Adding Tunnel Setup to $KEYFILE!!
-	sed -ie 's:^:tunnel="0", command="/sbin/ifup tun0" :' $KEYFILE
+RCFILE=.bashrc
+KEYILE=.ssh/authorized_keys
+if ! grep tap0 $RCFILE; then 
+	echo Adding Tunnel Setup to $RCFILE!!
+	echo -e '\n[[ -n $SSH_CONNECTION ]] && /sbin/ifup tun0\n' >> $RCFILE
+	sed -ie 's:^:tunnel="0" :' $KEYFILE
 	REBOOT=1
 else
 	echo $KEYFILE ALREADY has tunnel command, etc!!
