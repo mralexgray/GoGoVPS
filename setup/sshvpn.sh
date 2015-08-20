@@ -22,7 +22,7 @@ fi
 DCONF=/etc/ssh/sshd_config
 if ! egrep "^PermitTunnel yes$" $DCONF; then
 	echo Adding PermitTunnel to $DCONF!!
-	sed -i 'i/PermitRootLogin yes/\nPermitTunnel yes\n' $DCONF
+	sed -i 's/PermitRootLogin yes/PermitRootLogin yes\nPermitTunnel yes\n' $DCONF
 else
 	echo PermitTunnel ALREADY in $DCONF!!
 fi	
