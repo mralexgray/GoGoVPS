@@ -3,21 +3,30 @@
 
 SYSCTL=/etc/sysctl.conf
 if ! egrep '^net.ipv4.ip_forward.*1$' $SYSCTL; then
-	echo $SYSCTL  needs help!!
+	echo Enabling forwarding in $SYSCTL!!
 	sed -i 's/.*net.ipv4.ip_forward.*/net.ipv4.ip_forward=1/g' $SYSCTL
+else 	echo Forwarding ALREADY enabled in $SYSCTL!!
 fi
 
 IFACES=/etc/network/interfaces
 if ! grep tap0 $IFACES; then 
-
-	echo $IFACES  needs tap0!!
+	echo Adding tap0 to $IFACES!!
 	echo "
 	iface tap0 inet static
 	    address 10.10.10.1
 	    netmask 255.255.255.0
 	" >>! $IFACES
+else 	echo tap0 ALREADY to $IFACES!!
 fi
-		
+
+DCONF=/etc/ssh/sshd_config
+if ! egrep "^PermitTunnel yes$" $DCONF; then
+	echo Adding PermitTunnel to $DCONF!!
+	sed -i 'i/PermitRootLogin yes/\nPermitTunnel yes\n' $DCONF
+else
+	echo PermitTunnel ALREADY in $DCONF!!
+fi	
+
 KEYFILE=.ssh/authorized_keys
 # sed '1 i\tunnel="0", command="/sbin/ifdown tun0;/sbin/ifup tun0"' KEYFILE
 # sed '1 i\tunnel="0", command="/sbin/ifdown tun0;/sbin/ifup tun0"' KEYFILE
