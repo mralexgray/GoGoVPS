@@ -8,7 +8,8 @@ PO() 			{
 }
 INSTALL() {
 	for x in $@; {
-		if dpkg-query -l | grep -q $x; then continue; fi
+		# if dpkg-query -l | grep -q $x; then continue; fi
+		[[ $(which dialog > /dev/null 2>&1) == 0 ]] && continue
 		PO "Installing $x..."
 		apt-get install $x -y > /dev/null 2>&1;
 	}
