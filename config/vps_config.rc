@@ -26,7 +26,7 @@ vps_config_source () {
 		echo "setting up sshfs because you are our client!"
 		local MNTPT=/mnt/100
 		mkdir $MNTPT &> /dev/null 
-		sshfs -o followsymlinks $CLIENT:/ $MNTPT
+		sshfs -o follow_symlinks $CLIENT:/ $MNTPT
 	
 	}
 }
