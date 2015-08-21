@@ -21,12 +21,12 @@ vps_config_source () {
 	
 	sleep 4
 	CLIENT=10.10.10.100
-	ping -c1 $CLIENT &> /dev/null && {
+	ping -c1 $CLIENT > /dev/null 2>&1 && {
 		
-		echo "setting up sshfs because you are our client!"
-		local MNTPT=/mnt/100
-		mkdir $MNTPT &> /dev/null 
-		sshfs -o follow_symlinks $CLIENT:/ $MNTPT
+		echo "setting up sshfs because you are our client! ($CLIENT)"
+		local MOUNT_PT=/mnt/100
+		mkdir $MOUNT_PT 2> /dev/null 
+		sshfs -o follow_symlinks localadmin@${CLIENT}:/ $MOUNT_PT 
 	
 	}
 }
