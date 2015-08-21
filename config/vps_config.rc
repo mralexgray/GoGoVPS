@@ -1,4 +1,5 @@
 
+if [[ $(uname) == "Darwin" ]]; then echo you use a mac, gross; exit 9; fi
 
 vps_config_source() {
 	
