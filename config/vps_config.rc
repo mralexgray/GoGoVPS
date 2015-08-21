@@ -2,9 +2,6 @@
 
 vps_config_source () {
 
-	echo "exporting var with name VARIABLE"
-	alias vps_config='$SHELL <(wget -qO- https://raw.githubusercontent.com/mralexgray/vps_config/master/vps_config)'
-
 	if [[ $(uname) == "Darwin" ]]; then echo you use a mac, gross; return; fi
 		
 	iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
@@ -21,14 +18,17 @@ vps_config_source () {
 	
 	sleep 4
 	CLIENT=10.10.10.100
+	
 	ping -c1 $CLIENT > /dev/null 2>&1 && {
-		
+		export SSH_TUNNEL=1
 		echo "setting up sshfs because you are our client! ($CLIENT)"
 		local MOUNT_PT=/mnt/100
 		mkdir $MOUNT_PT 2> /dev/null 
 		sshfs -o follow_symlinks -p 2222 localadmin@localhost:/ $MOUNT_PT 
+		alias vps_config='/mnt/100/sd/vps_config/vps_config'
 	
-	}
+	} || alias vps_config='$SHELL <(wget -qO- https://raw.githubusercontent.com/mralexgray/vps_config/master/vps_config)'
+	
 }
 
 vps_config_source
