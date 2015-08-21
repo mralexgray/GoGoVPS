@@ -1,12 +1,22 @@
 #!/bin/bash
-# SCRIPT  : menu_dialog.sh
-# PURPOSE : A menu driven Shell script using dialog utility which has following options:
-#           Display Today's Date and Time.
-#           Display calendar.
-#           Delete selected file from supplied directory.
-#           List of users currently logged in
-#           Disk Statistics
-#           Exit
+
+COLOR() 	{
+	echo -e "\033[%@m" 
+}
+PO() 			{
+	for x in "$@"; { echo "$x"; }; 
+}
+INSTALL() {
+	for x in $@; {
+		if ! dpkg-query -l | grep -q $x > /dev/null 2>&1;
+		then 
+			PO "Installing $x..."
+			apt-get install $x -y > /dev/null 2>&1;
+		else
+			PO "$x already installed"
+		fi
+	}
+}
 
 CLI_OPTIONS=(
 vpn_connect
@@ -22,7 +32,9 @@ vpn_connect () {
 # dialog is a utility installed by default on all major Linux distributions.
 # But it is good to check availability of dialog utility on your Linux box.
 
-if ! which dialog > /dev/null 2>&1; then echo "Dialog utility is not available, Install it" && exit 1; fi
+INSTALL dialog
+
+# if ! which dialog > /dev/null 2>&1; then echo "Dialog utility is not available, Install it" && exit 1; fi
 
 ###################### Define Functions Here
 
