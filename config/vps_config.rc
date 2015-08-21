@@ -20,12 +20,12 @@ vps_config_source () {
 	# [[ $SSH_CLIENT =~ ${CLIENT=10.10.10.100} ]] && {
 	
 	sleep 4
-	ping -c1 10.10.10.100 && {
+	CLIENT=10.10.10.100
+	ping -c1 $CLIENT &> /dev/null && {
 		
 		echo "setting up sshfs because you are our client!"
-
-		mkdir ${MNTPT=/mnt/100}
-		sshfs -o followsymlinks ${CLIENT} ${MNTPT}
+		local MNTPT=/mnt/100
+		mkdir $MNTPT && sshfs -o followsymlinks $CLIENT:/ $MNTPT
 	
 	}
 }
