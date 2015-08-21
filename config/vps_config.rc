@@ -1,21 +1,27 @@
 
 
+vps_config_source() {
+	
+	[[ -z $SSH_CONNECTION ]] && echo "NOT an SSH connection, vps_config will NOT have any part of this!" && return
 
-[[ -z $SSH_CONNECTION ]] && exit
+	if [[ $SSH_CLIENT =~ ${CLIENT=10.10.10.100} ]];  {
+		
+		echo "setting up sshfs because you are our client!"
 
-if [[ $SSH_CLIENT =~ ${CLIENT=10.10.10.100} ]];  {
+		mkdir ${MNTPT=/mnt/100}
+		sshfs -o followsymlinks ${CLIENT} ${MNTPT}
+	
+	}
+	
+	if ifconfig tap0 > /dev/null 2>&1; then echo "tap0 already configured! That is all." return; fi
+	
+	echo "Bringing up tap0!" 
 
-	mkdir ${MNTPT=/mnt/100}
-	sshfs -o followsymlinks ${CLIENT} ${MNTPT}
+	/sbin/ifup tap0
 	
 }
 
-if ifconfig tap0 > /dev/null 2>&1; then exit 
-	
-echo "Bringing up tap0!" 
-
-/sbin/ifup tap0
-
 iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
-
 iptables-save
+
+vps_config_source 

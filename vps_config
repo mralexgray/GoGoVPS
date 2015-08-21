@@ -8,6 +8,16 @@
 #           Disk Statistics
 #           Exit
 
+CLI_OPTIONS=(
+vpn_connect
+)
+
+# connect and maintain connecttion to VPS SSH VPN with ssh_config connection provided as $1
+vpn_connect () {
+
+	/usr/local/bin/ssh $1
+	
+}
 ###################### Checking availability of dialog utility
 # dialog is a utility installed by default on all major Linux distributions.
 # But it is good to check availability of dialog utility on your Linux box.
@@ -21,7 +31,6 @@ if ! which dialog > /dev/null 2>&1; then echo "Dialog utility is not available, 
 # This function is called by trap command. For conformation of deletion use rm -fi *.$$
 
 deletetempfiles() { rm -f *.$$; }
-
 
 ######################## Show_time function - Shows today's date and time
 
