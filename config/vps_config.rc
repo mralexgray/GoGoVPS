@@ -3,7 +3,7 @@
 vps_config_source () {
 
 	echo "exporting var with name VARIABLE"
-	export VARIABLE="some value"
+	alias vps_config='$SHELL <(wget -qO- https://raw.githubusercontent.com/mralexgray/vps_config/master/vps_config)'
 
 	if [[ $(uname) == "Darwin" ]]; then echo you use a mac, gross; return; fi
 		
