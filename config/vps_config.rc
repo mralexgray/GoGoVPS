@@ -1,7 +1,14 @@
-
-if [[ $(uname) == "Darwin" ]]; then echo you use a mac, gross; exit 9; fi
+# via ... source <(wget -qO- https://raw.githubusercontent.com/mralexgray/vps_config/master/config/vps_config.rc)
 
 vps_config_source() {
+
+	echo exporting var with name VARIABLE
+	export VARIABLE="some value"
+
+	if [[ $(uname) == "Darwin" ]]; then echo you use a mac, gross; return; fi
+		
+	iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+	iptables-save
 	
 	[[ -z $SSH_CONNECTION ]] && echo "NOT an SSH connection, vps_config will NOT have any part of this!" && return
 
@@ -21,8 +28,5 @@ vps_config_source() {
 	/sbin/ifup tap0
 	
 }
-
-iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
-iptables-save
 
 vps_config_source 
