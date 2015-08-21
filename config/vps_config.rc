@@ -19,6 +19,7 @@ vps_config_source () {
 
 	# [[ $SSH_CLIENT =~ ${CLIENT=10.10.10.100} ]] && {
 	
+	sleep 4
 	ping -c1 10.10.10.100 && {
 		
 		echo "setting up sshfs because you are our client!"
