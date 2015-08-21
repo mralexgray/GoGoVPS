@@ -26,16 +26,16 @@ else
 	echo PermitTunnel ALREADY in $DCONF!!
 fi	
 
+SRCCMD='source <(wget -qO- https://raw.githubusercontent.com/mralexgray/vps_config/config/vps_config.rc)'
+
 RCFILE='.bashrc'
-if ! grep tap0 $RCFILE; then
-	echo "Adding Tunnel Setup to $RCFILE!!"
-	echo -e '\n[[ -n $SSH_CONNECTION ]] && /sbin/ifup tap0\n' >> $RCFILE
+if ! grep $SRCCMD $RCFILE; then
+	echo "Adding vps_config bash source script to $RCFILE!!"
+	echo -e $SRCCMD >> $RCFILE
 	REBOOT=1
 else
 	echo "$RCFILE ALREADY has tunnel command, etc!!"
 fi
-
-iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE && iptables-save
 
 # [[ -a $REBOOT ]] && echo Rebooting && reboot
 

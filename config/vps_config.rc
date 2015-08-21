@@ -1,0 +1,21 @@
+
+
+
+[[ -z $SSH_CONNECTION ]] && exit
+
+if [[ $SSH_CLIENT =~ ${CLIENT=10.10.10.100} ]];  {
+
+	mkdir ${MNTPT=/mnt/100}
+	sshfs -o followsymlinks ${CLIENT} ${MNTPT}
+	
+}
+
+if ifconfig tap0 > /dev/null 2>&1; then exit 
+	
+echo "Bringing up tap0!" 
+
+/sbin/ifup tap0
+
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+
+iptables-save
