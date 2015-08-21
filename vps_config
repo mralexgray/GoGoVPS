@@ -8,13 +8,9 @@ PO() 			{
 }
 INSTALL() {
 	for x in $@; {
-		if ! dpkg-query -l | grep -q $x > /dev/null 2>&1;
-		then 
-			PO "Installing $x..."
-			apt-get install $x -y > /dev/null 2>&1;
-		else
-			PO "$x already installed"
-		fi
+		if dpkg-query -l | grep -q $x; then continue; fi
+		PO "Installing $x..."
+		apt-get install $x -y > /dev/null 2>&1;
 	}
 }
 
