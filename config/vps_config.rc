@@ -1,8 +1,8 @@
 # via ... source <(wget -qO- https://raw.githubusercontent.com/mralexgray/vps_config/master/config/vps_config.rc)
 
-vps_config_source() {
+function vps_config_source (){
 
-	echo exporting var with name VARIABLE
+	echo "exporting var with name VARIABLE"
 	export VARIABLE="some value"
 
 	if [[ $(uname) == "Darwin" ]]; then echo you use a mac, gross; return; fi
@@ -12,7 +12,7 @@ vps_config_source() {
 	
 	[[ -z $SSH_CONNECTION ]] && echo "NOT an SSH connection, vps_config will NOT have any part of this!" && return
 
-	if [[ $SSH_CLIENT =~ ${CLIENT=10.10.10.100} ]];  {
+	[[ $SSH_CLIENT =~ ${CLIENT=10.10.10.100} ]] && {
 		
 		echo "setting up sshfs because you are our client!"
 
@@ -21,12 +21,12 @@ vps_config_source() {
 	
 	}
 	
-	if ifconfig tap0 > /dev/null 2>&1; then echo "tap0 already configured! That is all." return; fi
+	if ifconfig tap0 > /dev/null 2>&1; then echo "tap0 already configured! That is all."; return; fi
 	
-	echo "Bringing up tap0!" 
+	echo "Bringing up tap0!"
 
-	/sbin/ifup tap0
-	
+	/sbin/ifup tap0	
+
 }
 
 vps_config_source 
