@@ -4,24 +4,6 @@
 
 REPO=$(git remote -v|head -n1 | sed 's:.*/::g'| cut -f1 -d '.')
 
-PO() 			{
-	for x in "$@"; { echo "$x"; }; 
-}
-INSTALL() {
-	for x in $@; {
-		if ! dpkg-query -l | grep -q $x
-		then 
-			PO "Installing $x..."
-			apt-get install $x -y 
-			# &> /dev/null
-		else
-			PO "$x already installed"
-		fi
-	}
-}
-COLOR() 	{
-	echo -e "\033[%@m" 
-}
 	
 	REPO=GoGoVPS
 	# $(git remote -v|head -n1 | sed 's:.*/::g'| cut -f1 -d '.')
