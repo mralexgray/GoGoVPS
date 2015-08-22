@@ -152,7 +152,10 @@ if [ ! -d "$REPODIR" ]; then git clone git@github.com:mralexgray/$REPONAME.git "
 
 # echo "$IP" >! "$TMPF" && echo "Saved IP: $IP to $TMPF"
 
-# echo "ls mrgray.com" | ./hurricanednscmd.py mralexgray ***REMOVED***
+HE_USER=
+HE_PASS=
+
+# echo "ls mrgray.com" | ./hurricanednscmd.py $HE_USER $HE_PASS
 
 # add domain host type value [mx] [ttl]
 
