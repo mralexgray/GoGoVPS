@@ -1,0 +1,3 @@
+[submodule "external/docsync"]
+	path = external/docsync
+	url = https://github.com/CoryG89/docsync.git
