@@ -14,3 +14,34 @@ I never really quite understood why a casual internet user might _want_ or _need
 
 - Clone this repo wherever you want to manage and interact with your VPS.
 - Sets up dns.he.net DNS entries for your VPS allowing you to use myvps.mydomain.com instead of IP's.
+
+
+# Previously submodules
+
+[submodule "digital-ocean-pptp-vpn"]
+	path = modules/digital-ocean-pptp-vpn
+	url = git@github.com:MdNor/digital-ocean-pptp-vpn.git
+[submodule "openvpn_autoconfig"]
+	path = modules/openvpn_autoconfig
+	url = git@github.com:tinfoil/openvpn_autoconfig.git
+[submodule "pyHurricaneDNS"]
+	path = modules/pyHurricaneDNS
+	url = git@github.com:tresni/pyHurricaneDNS.git
+[submodule "darling"]
+	path = modules/darling
+	url = https://github.com/LubosD/darling.git
+
+
+#secrets
+
+To run this thing from a private repo, you MUST set and env variable with your oath token
+
+`GITHUB_OATH=<TOKEN>`
+
+## Usage
+
+`vps_config` can be run a FEW ways.
+
+From a cloned github repo (i.e. on your local development machine)
+
+`git clone https://github.com/mralexgray/vps_config.git && vps_config`

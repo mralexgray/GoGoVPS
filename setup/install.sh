@@ -4,9 +4,6 @@
 
 REPO=$(git remote -v|head -n1 | sed 's:.*/::g'| cut -f1 -d '.')
 
-	
-	REPO=GoGoVPS
-	# $(git remote -v|head -n1 | sed 's:.*/::g'| cut -f1 -d '.')
 	THIS="$(realpath $(pwd)/$0)"
 	mkdir ${GITDIR=/git} && cd $GITDIR
 	REPODIR="${GITDIR}/${REPO}"

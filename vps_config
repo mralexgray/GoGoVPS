@@ -1,5 +1,24 @@
 #!/bin/bash
 
+	# TOKEN="" && say using github authorization
+# wget --header="Authorization: token ee64ef5d46f939fe17dc6b13be500f6e923288ac" -qO- https://raw.githubusercontent.com/mralexgray/vps_config/master/setup/install.sh
+# [[ $(basename $_) == "bash" ]] && {  # running via wget, etc	
+# wget "$TOKEN" -O- https://raw.githubusercontent.com/mralexgray/vps_config/master/$1
+	# SCRIPT=${_:-$0} # echo "SCRIPT is $SCRIPT" && -n $_ && $0 =~ .*vps_config$ ]] && {
+
+
+PO_PATH() { # prints contents of subpath of this repo.. PO_PATH setup/install.sh
+
+	echo $GITHUB_OATH
+	[[ -x "$1" ]] && { /bin/cat "$1"; return $?; }
+	CMD="wget -O- https://raw.githubusercontent.com/mralexgray/vps_config/master/$1"
+	[[ -n $GITHUB_OATH ]] && $CMD --header="Authorization: token $GITHUB_OATH" || $CMD
+}
+
+PO_PATH setup/install.sh
+
+exit
+
 COLOR() 	{
 	echo -e "\033[%@m" 
 }
