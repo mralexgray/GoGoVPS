@@ -1,12 +1,12 @@
 [submodule "digital-ocean-pptp-vpn"]
-	path = digital-ocean-pptp-vpn
+	path = modules/digital-ocean-pptp-vpn
 	url = git@github.com:MdNor/digital-ocean-pptp-vpn.git
 [submodule "openvpn_autoconfig"]
-	path = openvpn_autoconfig
+	path = modules/openvpn_autoconfig
 	url = git@github.com:tinfoil/openvpn_autoconfig.git
 [submodule "pyHurricaneDNS"]
-	path = pyHurricaneDNS
+	path = modules/pyHurricaneDNS
 	url = git@github.com:tresni/pyHurricaneDNS.git
 [submodule "darling"]
-	path = darling
+	path = modules/darling
 	url = https://github.com/LubosD/darling.git
