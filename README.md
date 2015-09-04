@@ -1,5 +1,14 @@
 # `vps_config`
 
+###Required ENV keys 
+
+`DIGOCEAN_ID`
+`DIGOCEAN_KEY`
+
+or optionally, store these two credntials with the variablein ~/.digitalocean.
+
+
+
 I never really quite understood why a casual internet user might _want_ or _need_ a VPS. Until I got one. 
 
 ### What's so great about having a VPS?

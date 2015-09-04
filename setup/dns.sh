@@ -4,7 +4,7 @@
 [[ -f ${TMPF=/tmp/setupsavefile} ]] && . $TMPF
 
 SAVEIT () {
-	
+ 	
 	echo '' >! $TMPF	
 	for x in IP HOSTNAME DNS_USER DNS_PASS; {
 		[[ -z ${(P)x} ]] && { echo "$x is NULL!" && exit } || echo "$x=${(P)x}" >>! $TMPF
