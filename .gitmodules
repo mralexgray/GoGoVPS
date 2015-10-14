@@ -1,0 +1,3 @@
+[submodule "external/dns.he.net-updater-unix"]
+	path = external/dns.he.net-updater-unix
+	url = https://github.com/bennettp123/dns.he.net-updater-unix.git

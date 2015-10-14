@@ -16,7 +16,7 @@ trap 'SAVEIT' SIGHUP SIGINT SIGTERM
 DNS(){
 	
 	read "GET_IP? What is the ipV4 of your new droplet? [$IP]  "
-	[[ -n $GET_IP ]]  && IP=$GET_IP
+	[[ -n $GET_IP ]] && IP=$GET_IP
 	rx='([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])'
 	[[ $IP =~ ^$rx\.$rx\.$rx\.$rx$ ]] || { echo "IP invalid" && exit 9 }
 
@@ -59,3 +59,4 @@ DNS(){
 	read "SETUP?Setup DNS for $HOSTNAME? [y/N]  "
 	[[ -n "$SETUP" ]]  && DNS || dig $HOSTNAME
 }
+

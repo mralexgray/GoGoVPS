@@ -50,18 +50,16 @@ INSTALL dialog
 ###################### Define Functions Here
 
 ###################### deletetempfiles function 
-
 # This function is called by trap command. For conformation of deletion use rm -fi *.$$
 
-deletetempfiles() { rm -f *.$$; }
+deletetempfiles() { rm -fi *.$$; }
 
 ######################## Show_time function - Shows today's date and time
-
-show_time()
-{
+show_time() {
    dialog --backtitle "MENU DRIVEN PROGRAM" --title "DATE & TIME" \
-   --msgbox "\n        Today's Date:   `date +"%d-%m-%Y"` \n\n \
-       Today's Time:   `date +"%r %Z"`" 10 60
+   --msgbox "whatever" 10 60
+	 \n        Today's Date:   $(date +%d-%m-%Y) \n\n \
+       Today's Time:   $(date +%r %Z)" 10 60
 }
 
 ####################### show_cal function ###################################
