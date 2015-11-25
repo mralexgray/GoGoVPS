@@ -1,13 +1,18 @@
 #!/bin/bash
 
-REPO=GoGoVPS
+# invoke with...
+# bash <(wget -qO- https://raw.githubusercontent.com/mralexgray/hostess/master/INSTALL)
 
-# bash <(wget -qO- https://raw.githubusercontent.com/mralexgray/GoGoVPS/master/setup.zsh)
+set -x 
 
-# set -x 
+REPO=hostess
 
 # Make sure we're installed, otherwise do it.
-[[ $(basename $(realpath ${0:h})) != $REPO || ! "$(git remote -v)" =~ $REPO ]] && {
+
+HERE_IS="$(basename $(realpath ${0:h}))"
+IS_REPO="$(git remote -v)" 
+
+[[ $HERE_IS != $REPO || ! $IS_REPO =~ $REPO ]] && {
 	
 	echo "danger, not the right git repo!"
 	exit
@@ -18,6 +23,8 @@ REPO=GoGoVPS
 	
 }
 
+exit
+∏
 # Set up DNS
 . ${0}/../setup/dns.zsh
 
